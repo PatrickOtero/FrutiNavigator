@@ -56,11 +56,6 @@ export const NavBarIcon = ({ filterName, getFilterName, handleGetFilterName, use
                 source={{ 
                     uri: `https://oterofficia.com.br/${theme === "light" ? filterName : filterName + "_white"}.png` 
                 }} 
-                onError={() => {
-                    (this as any).setNativeProps({
-                        source: { uri: `https://oterofficia.com.br/${theme === "light" ? filterName : filterName + "_white"}.jpg` },
-                    });
-                }}
             />
             </NavIconContainerAnimated>
         </Pressable>

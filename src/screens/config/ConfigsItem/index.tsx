@@ -41,7 +41,7 @@ const onPressLogout = () => {
     return (
       <ConfigItemMain>
         <ConfigItemName>{text}</ConfigItemName>
-        <TouchableOpacity onPress={() => console.log("Editar Perfil clicado")}>
+        <TouchableOpacity onPress={() => navigation.navigate("profileEdit")}>
           <ThemeButton>
             <ThemeText>Editar</ThemeText>
           </ThemeButton>

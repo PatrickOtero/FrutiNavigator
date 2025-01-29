@@ -7,6 +7,7 @@ export type RootParamList = {
     articleFeed: undefined;
     login: undefined;
     register: undefined;
+    profileEdit: undefined
 }
 
 
@@ -22,6 +23,7 @@ export declare global {
             articleFeed: undefined;
             login: undefined;
             register: undefined;
+            profileEdit: undefined
         }
     }
 }

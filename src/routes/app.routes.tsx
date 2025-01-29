@@ -5,6 +5,7 @@ import { Config } from "../screens/config";
 import { ArticleFeed } from "../screens/articleFeed";
 import { LoginScreen } from "../screens/loginPage";
 import CreateUserScreen from "../screens/CreateUserPage";
+import EditProfile from "../screens/EditUserPage";
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -34,6 +35,10 @@ export function AppRoutes() {
             <Screen
                 name="register"
                 component={CreateUserScreen}
+             />
+            <Screen
+                name="profileEdit"
+                component={EditProfile}
              />
         </Navigator>
     );
