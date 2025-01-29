@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "FrutiNavigator",
+    "slug": "hortichoice",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#e0f9f6"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "pan",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#e0f9f6"
+      },
+      "package": "com.oterofficia.frutinavigator"
+    },
+    "web": {},
+    "extra": {
+      "eas": {
+        "projectId": "9e7e906b-8795-46b4-9d8b-e94a91e3e926"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9e7e906b-8795-46b4-9d8b-e94a91e3e926"
+    }
+  }
+}
