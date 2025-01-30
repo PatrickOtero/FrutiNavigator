@@ -33,7 +33,6 @@ export const Input = styled.TextInput`
   margin-bottom: 20px;
   font-size: 16px;
   box-shadow: 0px 4px 12px ${({ theme }) => theme.COLORS.GRAY};
-  border: 1px solid ${({ theme }) => theme.COLORS.GRAY};
 `;
 
 export const Button = styled.TouchableOpacity`

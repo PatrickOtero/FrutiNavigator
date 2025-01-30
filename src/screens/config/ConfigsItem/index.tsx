@@ -11,12 +11,12 @@ interface IConfigsItemProps {
 
 export const ConfigsItem = ({ text }: IConfigsItemProps) => {
   const { setTheme } = useGlobal(); // Para o tema
-  const { setIsLoggedIn } = useAuth();
+  const { handleLogout } = useAuth();
 
 const navigation = useNavigation()
 
 const onPressLogout = () => {
-    setIsLoggedIn(false)
+    handleLogout()
     navigation.navigate("home")
 }
 

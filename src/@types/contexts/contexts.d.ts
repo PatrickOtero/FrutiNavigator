@@ -39,11 +39,19 @@ export interface IGlobalContext {
 export interface IAuthContext {
   handleUserLogin: ( email: string, userPassword: string) =>  Promise<void>
   handleCreateUser: (userName: string, userPassword: string, email: string, gender: string) => Promise<void>;
+  handleEditUser: (name: string, gender: string, avatar: string) => Promise<void>;
+  handleUploadAvatar: (formData: FormData) => Promise<void>
+  handleLogout: () => Promise<void>
 
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+  setCreateUserErrors: React.Dispatch<React.SetStateAction<string>>
+  setEditUserErrors: React.Dispatch<React.SetStateAction<string>>
 
+  createUserErrors: string;
+  editUserErrors: string
   userLoginErrors: string;
   isLoading: boolean;
+  isProfilePhotoLoading: boolean;
   isLoggedIn: boolean
   user: IUser
 }

@@ -39,3 +39,11 @@ export interface IUser {
     updatedAt?: date 
     deleted?: boolean 
 }
+
+export interface IUpdateUser {
+    avatar?: string
+    name?: string
+    password?: string
+    email?: string   
+    gender?: string    
+}

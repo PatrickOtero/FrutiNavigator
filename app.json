@@ -20,7 +20,7 @@
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#e0f9f6"
+        "backgroundColor": "#e0f9f6",
       },
       "package": "com.oterofficia.frutinavigator"
     },
