@@ -11,8 +11,6 @@ export const useChangeColorAnimation = ({ handleGetFilterName, filterName}: useC
 
     const { currentTheme } = useGlobalProvider()
 
-
-
     const COLORS = {
         WHITE: currentTheme.COLORS.ITEM,
         YELLOW: currentTheme.COLORS.YELLOW,
@@ -63,5 +61,4 @@ export const useChangeColorAnimation = ({ handleGetFilterName, filterName}: useC
     return {
         changeFilterIconColor, changeNavIconColor, onPressIn, onPressOut, onPressFilter, checked
     }
-
 }

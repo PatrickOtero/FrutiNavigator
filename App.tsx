@@ -1,3 +1,4 @@
+import Toast from 'react-native-toast-message';
 import { Routes } from './src/routes';
 import { ProductContextProvider } from './src/contexts/productsContext';
 import { StatusBar } from 'react-native';
@@ -16,6 +17,7 @@ export default function App() {
                 translucent
               />
               <Routes/>
+              <Toast/>
           </ProductContextProvider>
         </GlobalContextProvider>
         </AuthContextProvider>

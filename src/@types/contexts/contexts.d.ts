@@ -15,10 +15,17 @@ export type ICompProps = {
     order?: string
   }
 
+  export interface addUserProductDTO {
+      product_id: string;
+  }
 
 export interface IProductContext {
   handleGetProductsList: (filterParams: IGetProductListParams) => Promise<void>
   handleGetProductAndVarietiesList: (productId: string | undefined) => Promise<void>
+
+  handleGetUserProductsList: (filterParams: IGetProductListParams) => Promise<void>
+
+  handleAddProductsToUserList: (products: addUserProductDTO[]) => Promise<void>
 
   productsListItems: IProduct[]
   setProductsListItems: React.Dispatch<React.SetStateAction<IProduct[]>>

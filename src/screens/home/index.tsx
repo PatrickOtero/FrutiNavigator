@@ -39,8 +39,8 @@ export default function Home() {
                 </SearchButton>
                 <HomeFilters>
                     <HomeFilter getFilterName={getFilterName} handleGetFilterName={ handleGetFilterName }filterImage="oterofficia.com.br/allProducts.png" filterName="Todos" />
-                    <HomeFilter getFilterName={getFilterName} handleGetFilterName={ handleGetFilterName }filterImage="oterofficia.com.br/fruits.png" filterName="Frutas" />
-                    <HomeFilter getFilterName={getFilterName} handleGetFilterName={ handleGetFilterName }filterImage="oterofficia.com.br/vegetables.png"filterName="Legumes" />
+                    <HomeFilter getFilterName={getFilterName} handleGetFilterName={handleGetFilterName }filterImage="oterofficia.com.br/fruits.png" filterName="Frutas" />
+                    <HomeFilter getFilterName={getFilterName} handleGetFilterName={handleGetFilterName }filterImage="oterofficia.com.br/vegetables.png"filterName="Legumes" />
                     <HomeFilter getFilterName={getFilterName} handleGetFilterName={ handleGetFilterName }filterImage="oterofficia.com.br/greens.png" filterName="Verduras" />
                 </HomeFilters>
             </TopBox>

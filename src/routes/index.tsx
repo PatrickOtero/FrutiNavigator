@@ -1,3 +1,4 @@
+import Toast from 'react-native-toast-message';
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutes } from "./app.routes";
 import { NavBar } from "../theme/global/NavBar";

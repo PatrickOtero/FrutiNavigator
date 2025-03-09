@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from "react-native"
+import { Pressable } from "react-native"
 import { FilterBox, FilterBoxContainer, FilterImage, FilterName } from "./styles"
 import Animated, { withTiming } from "react-native-reanimated"
 import { useEffect} from "react"
@@ -13,7 +13,7 @@ interface homeFilterProps {
 
 export default function HomeFilter({ filterImage, filterName, handleGetFilterName, getFilterName }: homeFilterProps) {
 
-    const FilterBoxAnim = Animated.createAnimatedComponent(FilterBox)
+    const FilterBoxAnim = Animated.createAnimatedComponent(FilterBox) as React.ComponentType<any>;
 
     const { changeFilterIconColor, onPressFilter, onPressIn, onPressOut, checked} = useChangeColorAnimation({ handleGetFilterName, filterName})
 

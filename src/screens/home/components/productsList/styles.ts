@@ -22,6 +22,8 @@ export const ProductsListMain = styled.View`
 export const EmptyListImage = styled.Image`
   width: ${width * 0.8}px;
   height: ${height * 0.4}px;
+
+  margin-bottom: 150px;
 `;
 
 export const EmptyListText = styled.Text`
@@ -35,10 +37,9 @@ margin-top: 35px;
 `;
 
 export const EmptyListContainer = styled.View`
+  display: flex;
   height: 100%;
   width: 100%;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const ProductsListTitle = styled.Text`
@@ -64,4 +65,39 @@ export const SearchIcon = styled.View`
   position: absolute;
   top: ${height * 0.02}px;
   left: ${width * 0.66}px;
+`;
+
+export const PlusIcon = styled.View`
+  position: absolute;
+  top: ${height * 0.015}px;
+  left: ${width * 0.66}px;
+`;
+
+export const AddSelectionButton = styled.TouchableOpacity`
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #00c853;
+    padding: 12px 24px;
+    border-radius: 8px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const Button = styled.TouchableOpacity`
+  position: absolute;
+  gap: ${width * 0.02}px;
+  padding-left: ${width * 0.05}px;
+  padding-top: ${width * 0.02}px;
+  background-color: ${({ theme }) => theme.COLORS.YELLOW};
+  border-radius: ${width * 5}px;
+  width: ${width * 0.2}px;
+  height: ${height * 0.075}px;
+
+  bottom: 30%;
+  right: -8%;
+
+  z-index: 2;
 `;
