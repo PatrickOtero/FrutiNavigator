@@ -1,15 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const localUrl = "http://192.168.1.64:3330"
-// const remoteUrl = "https://hortichoice.onrender.com"
+// const localUrl = "http://192.168.1.64:3330"
+const remoteUrl = "https://hortichoice.onrender.com"
 
 export const api = axios.create({
-    baseURL: localUrl
+    baseURL: remoteUrl
 })
 
 export const apiAuth = axios.create({
-    baseURL: localUrl
+    baseURL: remoteUrl
 });
 
 apiAuth.interceptors.request.use(
