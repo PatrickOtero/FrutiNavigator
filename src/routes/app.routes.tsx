@@ -13,6 +13,10 @@ export function AppRoutes() {
     return (
         <Navigator screenOptions={{ headerShown: false}}>
             <Screen
+                name="login"
+                component={LoginScreen}
+             />
+            <Screen
                 name="home"
                 component={Home}
              />
@@ -27,10 +31,6 @@ export function AppRoutes() {
             <Screen
                 name="articleFeed"
                 component={ArticleFeed}
-             />
-            <Screen
-                name="login"
-                component={LoginScreen}
              />
             <Screen
                 name="register"
