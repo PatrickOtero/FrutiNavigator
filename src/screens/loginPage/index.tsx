@@ -18,7 +18,7 @@ export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { handleUserLogin, userLoginErrors, isLoading, isLoggedIn } = useAuth();
+  const { handleUserLogin, userLoginErrors, isLoading, isLoggedIn, setIsRegistering } = useAuth();
   const navigation = useNavigation();
 
   useEffect(() => {

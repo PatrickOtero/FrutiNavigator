@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, ActivityIndicator, StatusBar, ImageBackground } from "react-native";
-import { useAuthProvider } from "../../hooks/auth/useAuthProvider";
 import { Container, Title, Button, ButtonText, ErrorText, StepContainer, Form } from "./styles";
 import StepOne from "./components/StepOne";
 import StepTwo from "./components/StepTwo";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 const CreateUserScreen = () => {
-  const { handleCreateUser, createUserErrors, isLoading } = useAuthProvider();
-  const navigation = useNavigation()
+  const { handleCreateUser, errors, setErrors, isLoading } = useAuth();
+  const navigation = useNavigation();
 
   const [step, setStep] = useState(1);
   const [userName, setUserName] = useState("");
@@ -23,7 +23,9 @@ const CreateUserScreen = () => {
         Alert.alert("Erro", "Por favor, preencha todos os campos obrigatórios.");
         return;
       }
+      if (!errors) {
       setStep(2);
+      }
     } else if (step === 2) {
       if (password !== confirmPassword) {
         Alert.alert("Erro", "As senhas não coincidem.");
@@ -32,17 +34,24 @@ const CreateUserScreen = () => {
   
       try {
         await handleCreateUser(userName, password, email, gender);
-        navigation.navigate("login")
-        Alert.alert("Sucesso", "Usuário criado com sucesso!");
+        if (!errors) {
+          navigation.navigate("login");
+          Alert.alert("Sucesso", "Usuário criado com sucesso!");
+        }
+
       } catch (error) {
-        const errorMessage = Array.isArray(createUserErrors)
-          ? createUserErrors.join(", ")
-          : createUserErrors;
+        const errorMessage = Array.isArray(errors.create)
+          ? errors.create.join(", ")
+          : errors.create;
         Alert.alert("Erro", errorMessage || "Erro ao criar usuário.");
       }
     }
   };
   
+  useEffect(() => {
+    setErrors({});
+}, [step]);
+
   return (
     <Container>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
@@ -56,6 +65,7 @@ const CreateUserScreen = () => {
       <StepContainer>
         {step === 1 ? (
           <StepOne
+            errors={errors}
             userName={userName}
             email={email}
             gender={gender}
@@ -65,6 +75,7 @@ const CreateUserScreen = () => {
           />
         ) : (
           <StepTwo
+            errors={errors}
             password={password}
             confirmPassword={confirmPassword}
             setPassword={setPassword}
@@ -72,7 +83,9 @@ const CreateUserScreen = () => {
           />
         )}
 
-        {createUserErrors && <ErrorText>{createUserErrors}</ErrorText>}
+        {errors.create && <ErrorText>{errors.create}</ErrorText>}
+        {errors.edit && <ErrorText>{errors.edit}</ErrorText>}
+        {errors.login && <ErrorText>{errors.login}</ErrorText>}
 
         <Form>
           {step === 1 && (

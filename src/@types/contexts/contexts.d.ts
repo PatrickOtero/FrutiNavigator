@@ -15,8 +15,14 @@ export type ICompProps = {
     order?: string
   }
 
-  export interface addUserProductDTO {
+  export interface IAddUserProductDTO {
       product_id: string;
+  }
+
+  export interface IAuthErrors {
+    create?: string
+    edit?: string
+    login?: string
   }
 
 export interface IProductContext {
@@ -25,7 +31,7 @@ export interface IProductContext {
 
   handleGetUserProductsList: (filterParams: IGetProductListParams) => Promise<void>
 
-  handleAddProductsToUserList: (products: addUserProductDTO[]) => Promise<void>
+  handleAddProductsToUserList: (products: IAddUserProductDTO[]) => Promise<void>
 
   productsListItems: IProduct[]
   setProductsListItems: React.Dispatch<React.SetStateAction<IProduct[]>>
@@ -51,8 +57,10 @@ export interface IAuthContext {
   handleLogout: () => Promise<void>
 
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+  setIsRegistering: React.Dispatch<React.SetStateAction<boolean>>
   setCreateUserErrors: React.Dispatch<React.SetStateAction<string>>
   setEditUserErrors: React.Dispatch<React.SetStateAction<string>>
+  setErrors: React.Dispatch<React.SetStateAction<IAuthErrors>>
 
   createUserErrors: string;
   editUserErrors: string
@@ -61,4 +69,6 @@ export interface IAuthContext {
   isProfilePhotoLoading: boolean;
   isLoggedIn: boolean
   user: IUser
+  isRegistering: boolean
+  errors: IAuthErrors
 }

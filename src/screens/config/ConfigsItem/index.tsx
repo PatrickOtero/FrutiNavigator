@@ -17,7 +17,7 @@ const navigation = useNavigation()
 
 const onPressLogout = () => {
     handleLogout()
-    navigation.navigate("home")
+    navigation.navigate("login")
 }
 
   if (text === "Tema")

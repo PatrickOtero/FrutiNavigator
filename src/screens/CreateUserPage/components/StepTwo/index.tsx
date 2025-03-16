@@ -1,9 +1,11 @@
 import React from "react";
-import { Label, StyledTextInput } from "../../styles";
+import { ErrorText, Label, StyledTextInput } from "../../styles";
+import { IAuthErrors } from "../../../../@types/contexts/contexts";
 
 interface StepTwoProps {
   password: string;
   confirmPassword: string;
+  errors: IAuthErrors
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   setConfirmPassword: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -11,6 +13,7 @@ interface StepTwoProps {
 const StepTwo: React.FC<StepTwoProps> = ({
   password,
   confirmPassword,
+  errors,
   setPassword,
   setConfirmPassword,
 }) => {
@@ -23,6 +26,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         secureTextEntry
         onChangeText={setPassword}
       />
+      {errors?.create && <ErrorText>{errors?.create}</ErrorText>}
 
       <Label>Confirmar Senha</Label>
       <StyledTextInput
@@ -31,6 +35,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
         secureTextEntry
         onChangeText={setConfirmPassword}
       />
+      {errors?.create && <ErrorText>{errors?.create}</ErrorText>}
+
     </>
   );
 };

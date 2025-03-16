@@ -9,17 +9,22 @@ export const useAuthProvider = () => {
     const [isProfilePhotoLoading, setIsProfilePhotoLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState<IUser | null>(null);
+    const [ isRegistering, setIsRegistering ] = useState<boolean>(false)
 
     const loadUserFromStorage = useCallback(async () => {
         try {
             const storedUser = await AsyncStorage.getItem("user");
-            if (storedUser) {
+            const storedToken = await AsyncStorage.getItem("token");
+    
+            if (storedUser && storedToken) {
                 const parsedUser = JSON.parse(storedUser);
                 setUser(parsedUser);
                 setIsLoggedIn(true);
+                
+                apiAuth.defaults.headers.Authorization = `Bearer ${storedToken}`;
             }
         } catch (error) {
-            console.error("Erro ao carregar usuário do storage:", error);
+            console.error("Erro ao carregar usuário e token do storage:", error);
         }
     }, []);
 
@@ -32,27 +37,37 @@ export const useAuthProvider = () => {
     }, []);
 
     useEffect(() => {
+        console.log("Updated Errors:", errors);
+      }, [errors]);
+
+    useEffect(() => {
         loadUserFromStorage();
     }, [loadUserFromStorage]);
 
     useEffect(() => {
-        saveUserToStorage(user);
-    }, [user, saveUserToStorage]);
+        if (user !== null) {
+            saveUserToStorage(user);
+        }
+    }, [user]);
 
     const handleCreateUser = async (name?: string, password?: string, email?: string, gender?: string) => {
         try {
             setIsLoading(true);
             setErrors({});
             const { data } = await api.post("/user", { name, password, email, gender });
-
+    
             setUser(data.content);
             setIsLoggedIn(true);
         } catch (error: any) {
-            setErrors({ create: error.response?.data?.message || "Erro ao criar o usuário." });
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                create: error.response?.data?.message || "Erro desconhecido ao criar usuário",
+              }));
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     const handleEditUser = async (name?: string, gender?: string, avatar?: string) => {
         if (!user) return;
@@ -80,8 +95,14 @@ export const useAuthProvider = () => {
             setIsLoading(true);
             setErrors({});
             const { data } = await api.post("/user/login", { email, password });
-
+    
             await AsyncStorage.setItem("token", data.token);
+    
+            const storedToken = await AsyncStorage.getItem("token");
+            if (!storedToken) {
+                throw new Error("Falha ao salvar o token no armazenamento local.");
+            }
+    
             setUser(data.content);
             setIsLoggedIn(true);
         } catch (error: any) {
@@ -91,6 +112,7 @@ export const useAuthProvider = () => {
             setIsLoading(false);
         }
     };
+    
 
     const handleUploadAvatar = async (formData: FormData) => {
         try {
@@ -111,9 +133,17 @@ export const useAuthProvider = () => {
     };
 
     const handleLogout = async () => {
-        setUser(null);
-        setIsLoggedIn(false);
-        await AsyncStorage.clear();
+        try {
+            await AsyncStorage.removeItem("user");
+            await AsyncStorage.removeItem("token");
+    
+            setUser(null);
+            setIsLoggedIn(false);
+            
+            delete apiAuth.defaults.headers.Authorization;
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error);
+        }
     };
 
     return {
@@ -127,5 +157,8 @@ export const useAuthProvider = () => {
         isProfilePhotoLoading,
         isLoggedIn,
         user,
+        isRegistering,
+        setIsRegistering,
+        setErrors
     };
 };

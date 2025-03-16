@@ -12,10 +12,11 @@ export function Routes() {
     const { theme } = useGlobal()
 
     const currentTheme = theme === "dark" ? dark : light
-    
+
     return (
         <ThemeProvider theme={currentTheme}>
         <NavigationContainer>
+            
             <AppRoutes/>
             <NavBar/>
         </NavigationContainer>
