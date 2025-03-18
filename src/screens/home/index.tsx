@@ -1,10 +1,11 @@
-import { View } from "react-native"
+import { ActivityIndicator, View } from "react-native"
 import { GreetText, GreetTextUnderline, HomeContainer, HomeFilters, Input, SearchButton, TopBox } from "./styles"
 import { MagnifyingGlass } from "phosphor-react-native"
 import HomeFilter from "./components/homeFilter"
 import ProductsList from "./components/productsList"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useGlobal } from "../../hooks/globalHooks/useGlobal"
+import { useAuth } from "../../hooks/auth/useAuth"
 
 export default function Home() {
     const [getFilterName, setGetFilterName] = useState<string>("")
@@ -12,6 +13,8 @@ export default function Home() {
     const [nameSearch, setNameSearch] = useState<boolean>(false)
 
     const { currentTheme } = useGlobal()
+
+    const { user } = useAuth()
 
 
     const handleGetFilterName = (filterName: string) => {
@@ -22,11 +25,19 @@ export default function Home() {
             setGetFilterName(filterName)
         }
     }
+
+    useEffect(() => {
+        console.log("User data updated: " + user.name)
+    }, [user])
+
+    if (!user) {
+        return <ActivityIndicator/>
+    }
     
     return (
         <HomeContainer>
             <TopBox>
-                <GreetText>Olá, escolha o seu produto</GreetText>
+                <GreetText>Olá, {user?.name || "Visitante"}</GreetText>
                 <GreetTextUnderline/>
 
                 <Input onChangeText={setProductNameInput}

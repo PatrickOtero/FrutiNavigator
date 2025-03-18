@@ -11,10 +11,10 @@ export function useProductSelectionAnimation(isSelected: boolean) {
             BLUE: currentTheme.COLORS.PRIMARY_COLOR
         }
 
-    const backgroundColor = useSharedValue(isSelected ? "rgba(0, 200, 83, 0.3)" : COLORS.WHITE);
+    const backgroundColor = useSharedValue(isSelected ? COLORS.YELLOW : COLORS.WHITE);
 
     useEffect(() => {
-        backgroundColor.value = withTiming(isSelected ? "rgba(0, 200, 83, 0.3)" : COLORS.WHITE, { duration: 200 });
+        backgroundColor.value = withTiming(isSelected ? COLORS.YELLOW : COLORS.WHITE, { duration: 200 });
     }, [isSelected]);
 
     const animatedStyle = useAnimatedStyle(() => ({

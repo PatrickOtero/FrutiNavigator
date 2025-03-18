@@ -72,8 +72,6 @@ export const useAuthProvider = () => {
     const handleEditUser = async (name?: string, gender?: string, avatar?: string) => {
         if (!user) return;
 
-        const updatedUser = { ...user, name, gender, avatar };
-
         try {
             setIsLoading(true);
             setErrors({});
@@ -81,7 +79,7 @@ export const useAuthProvider = () => {
             const { data } = await apiAuth.put("/user", { name, gender, avatar });
 
             if (data.content) {
-                setUser(data.content);
+                setUser({ ...user, ...data.content });
             }
         } catch (error: any) {
             setErrors({ edit: error.response?.data?.message || "Erro ao atualizar o perfil." });

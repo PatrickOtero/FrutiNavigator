@@ -10,6 +10,7 @@ import {
 } from "./styles";
 import ProductsListItem from "../productsListItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../../../hooks/auth/useAuth";
 
 interface IProductListProps {
     getFilterName: string;
@@ -24,6 +25,8 @@ export default function ProductsList({ getFilterName, productNameInput, nameSear
 
     const { handleGetUserProductsList, handleGetProductsList, productsListItems, handleAddProductsToUserList, setProductsListItems } = useProductsList();
     const navigation = useNavigation();
+
+    const { } = useAuth()
 
     useEffect(() => {
         const handleLoadProducts = async () => {
@@ -125,7 +128,12 @@ export default function ProductsList({ getFilterName, productNameInput, nameSear
 
     return (
         <ProductsListMain>
+            {addNewProduct &&
+                <ProductsListTitle>Escolha seus produtos:</ProductsListTitle>
+            }
+            {!addNewProduct &&
             <ProductsListTitle>Opções do seu hortifruti:</ProductsListTitle>
+            }
             <ProductListTitleUnderline />
             {!loading ? (
                 <ProductsListContainer>
