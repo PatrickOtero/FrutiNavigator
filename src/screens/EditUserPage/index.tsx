@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Pressable, Alert, ActivityIndicator } from "react-native";
+import { ScrollView, Alert, ActivityIndicator } from "react-native";
 import { CaretLeft, User, PencilSimple } from "phosphor-react-native";
 import { useNavigation } from "@react-navigation/native"; 
 import { useGlobal } from "../../hooks/globalHooks/useGlobal";
@@ -18,6 +18,7 @@ import {
     SaveButtonText,
     GoBackButtonContainer
 } from "./styles";
+import Toast from "react-native-toast-message";
 
 const EditProfile = () => {
     const navigation = useNavigation();
@@ -29,6 +30,16 @@ const EditProfile = () => {
         gender: user?.gender || "",
         avatar: user?.avatar || "",
     });
+
+    useEffect(() => {
+        if (user) {
+          setFormData({
+            name: user.name || "",
+            gender: user.gender || "",
+            avatar: user.avatar || "",
+          });
+        }
+      }, [user]);
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -42,12 +53,23 @@ const EditProfile = () => {
         try {
             const { name, gender, avatar } = formData;
             await handleEditUser(name || "", gender || "", avatar || "");
-            Alert.alert("Sucesso", "Perfil atualizado com sucesso!");
+            Toast.show({
+                type: "success",
+                position: "bottom",
+                text1: "Perfil editado com sucesso!",
+                visibilityTime: 3000,
+            });
         } catch (error) {
             const errorMessage = Array.isArray(editUserErrors)
                 ? editUserErrors.join(", ")
                 : editUserErrors || "Erro desconhecido";
-            Alert.alert("Erro", errorMessage);
+                Toast.show({
+                    type: "error",
+                    position: "bottom",
+                    text1: "Erro de edição",
+                    text2: errorMessage,
+                    visibilityTime: 3000,
+                });
         }
     };
 
@@ -66,7 +88,13 @@ const EditProfile = () => {
             const photoInfo = await FileSystem.getInfoAsync(photoUri);
 
             if (photoInfo.exists && photoInfo.size && (photoInfo.size / 1024 / 1024) > 5) {
-                Alert.alert("Essa imagem é muito grande.");
+                Toast.show({
+                    type: "error",
+                    position: "bottom",
+                    text1: "Erro de arquivo",
+                    text2: "A imagem é muito grande, use outra menor.",
+                    visibilityTime: 3000,
+                });
                 return;
             }
 

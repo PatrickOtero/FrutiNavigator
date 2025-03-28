@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { IUser } from "../../@types/entities/entities";
 import { api, apiAuth } from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 export const useAuthProvider = () => {
     const [errors, setErrors] = useState<{ create?: string; edit?: string; login?: string }>({});
@@ -58,11 +59,13 @@ export const useAuthProvider = () => {
     
             setUser(data.content);
             setIsLoggedIn(true);
+    
+            await saveUserToStorage(data.content);
         } catch (error: any) {
             setErrors((prevErrors) => ({
                 ...prevErrors,
                 create: error.response?.data?.message || "Erro desconhecido ao criar usuário",
-              }));
+            }));
         } finally {
             setIsLoading(false);
         }
@@ -80,6 +83,7 @@ export const useAuthProvider = () => {
 
             if (data.content) {
                 setUser({ ...user, ...data.content });
+                await saveUserToStorage(data.content);
             }
         } catch (error: any) {
             setErrors({ edit: error.response?.data?.message || "Erro ao atualizar o perfil." });
@@ -103,9 +107,29 @@ export const useAuthProvider = () => {
     
             setUser(data.content);
             setIsLoggedIn(true);
+
+            Toast.show({
+                type: "success",
+                position: "bottom",
+                text1: "Login efetuado com sucesso",
+                visibilityTime: 3000,
+            });
         } catch (error: any) {
             setIsLoggedIn(false);
             setErrors({ login: error.response?.data?.message || "Erro ao fazer login." });
+
+            if (error.response) {
+                if (error.response.status === 404 || error.response.status === 400) {
+                    setErrors({})
+                    Toast.show({
+                        type: "error",
+                        position: "bottom",
+                        text1: "Erro de Login",
+                        text2: "Usuário não encontrado. Verifique os dados.",
+                        visibilityTime: 3000,
+                    });
+                }
+            }
         } finally {
             setIsLoading(false);
         }

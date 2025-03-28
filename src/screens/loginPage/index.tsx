@@ -18,7 +18,7 @@ export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { handleUserLogin, userLoginErrors, isLoading, isLoggedIn, setIsRegistering } = useAuth();
+  const { handleUserLogin, errors, isLoading, isLoggedIn, setIsRegistering } = useAuth();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const LoginScreen: React.FC = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        {userLoginErrors && <ErrorMessage>{userLoginErrors}</ErrorMessage>}
+        {errors && <ErrorMessage>{errors.login}</ErrorMessage>}
         <Button onPress={onLoginPress} disabled={isLoading}>
           {isLoading ? (
             <ActivityIndicator size="small" color="#fff" />

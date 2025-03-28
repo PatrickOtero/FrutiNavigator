@@ -2,14 +2,14 @@ import { useState } from "react"
 import Toast from 'react-native-toast-message';
 import { api, apiAuth } from "../../../../services/api"
 import { IProduct } from "../../../../@types/entities/entities"
-import { addUserProductDTO, IGetProductListParams } from "../../../../@types/contexts/contexts"
+import { IAddUserProductDTO, IGetProductListParams } from "../../../../@types/contexts/contexts"
 
 export const useProductsListProvider = () => {
     const [productsListItems, setProductsListItems] = useState<IProduct[]>([])
     const [productVarietiesListItems, setProductVarietiesListItems] = useState<IProduct[]>([])
     const [productsListErrors, setProductsListErrors] = useState<string>("")
 
-    const handleAddProductsToUserList = async (products: addUserProductDTO[]) => {
+    const handleAddProductsToUserList = async (products: IAddUserProductDTO[]) => {
         try {
             const addProducts = await apiAuth.post(`product/userProducts`, products);
             

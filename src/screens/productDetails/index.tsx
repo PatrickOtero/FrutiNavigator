@@ -79,7 +79,7 @@ export default function ProductDetails() {
                                 <ProductImage source={{uri: `${ productVarietiesListItems[index].productImage}`}}/>
 
                                 <RightVarietiesButtonContainer disabled={productVarietiesListItems.length <= 1} onPress={() => handleVarietiesArrowRight()}>
-                                            <CaretRight size={40} color="white"/>
+                                            <CaretRight size={40}color="white"/>
                                 </RightVarietiesButtonContainer>
 
                             </ProductDetailsTop>

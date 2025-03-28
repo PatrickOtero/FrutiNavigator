@@ -25,8 +25,8 @@ export const GreetText = styled.Text`
 export const GreetTextUnderline = styled.View`
   position: absolute;
   bottom: ${height * 0.215}px;
-  left: ${width * 0.58}px;
-  width: ${width * 0.26}px;
+  left: ${width * 0.19}px;
+  width: ${width * 0.50}px;
   height: 3px;
   background-color: ${({ theme }) => theme.COLORS.YELLOW};
 `;
